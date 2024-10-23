@@ -12,12 +12,24 @@ public class RecursiveMethods {
 	 *         ...)
 	 */
 	public static double geometricSum(int n) {
-		
-			// FIXME compute the geometric sum for the first n terms recursively
-			return 0;
-		
-	}
+			if(n == 0) { //Base case
+				return 0;
+			} else { //Recursive step
+				return 1/Math.pow(2, n) + geometricSum(n - 1); //This MUST be n - 1 because it must work toward the base case, or else it will be infinite (overflow error)
+			}
+		}
 	
+		
+		public static int GeometricLoop(int n) {
+		int result = 0;
+		while (n != 0) {
+			result = (int) (result + geometricSum(n));
+			n++;
+		}
+		return result;
+			// FIXME compute the geometric sum for the first n terms recursively
+	}
+	// 1/(n*2) + 1/((n+1)*2) +...
 	/**
 	 * @param xCenter                       x-coordinate of the center of the circle
 	 *                                      at the current depth
@@ -30,6 +42,16 @@ public class RecursiveMethods {
 	public static void circlesUponCircles(double xCenter, double yCenter, double radius,
 			double radiusMinimumDrawingThreshold) {
 		
+		if(radius < radiusMinimumDrawingThreshold) {
+			return;
+		} else {
+			StdDraw.circle(xCenter, yCenter, radius);
+			circlesUponCircles(xCenter + radius, yCenter, radius/3, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter - radius, yCenter, radius/3, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter, yCenter + radius, radius/3, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter, yCenter - radius, radius/3, radiusMinimumDrawingThreshold);
+			
+		}
 		// FIXME
 	}
 
